@@ -25,12 +25,6 @@ switch($uc){
 	case 'etatFrais' :{
 		include(CONTROLLERSPATH."c_etatFrais.php");break; 
 	}
-	case 'validerFrais' :{
-		include(CONTROLLERSPATH."c_validerFrais.php");break;
-	}
-	case 'suivrePaiementFrais' :{
-		include(CONTROLLERSPATH."c_suivrePaiementFrais.php");break; 
-	}
 }
 include(VIEWSPATH."v_pied.php") ;
 ?>
