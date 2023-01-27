@@ -8,14 +8,25 @@ switch($action){
 		include(VIEWSPATH."v_connexion.php");
 		break;
 	}
-	case 'valideConnexion':{
+	case 'valideConnexion':{ //connexion général
 		$login = trim(htmlentities($_REQUEST['login']));
 		$mdp = trim(htmlentities($_REQUEST['mdp']));
 		$visiteur = $pdo->getInfosVisiteur($login,$mdp);
+		$comptable = $pdo->getInfosComptable($login,$mdp);
 		if(!is_array( $visiteur)){
-			ajouterErreur("Login ou mot de passe incorrect");
+			if(!is_array( $comptable)){
+				ajouterErreur("Login ou mot de passe incorrect");
 			include(VIEWSPATH."v_erreurs.php");
 			include(VIEWSPATH."v_connexion.php");
+			}
+			else{
+				$id = $comptable['id'];
+				$nom = $comptable['nom'];
+				$prenom = $comptable['prenom'];
+				Cconnecter($id, $nom, $prenom);
+				include(VIEWSPATH."v_sommairecomptable.php");
+				include(VIEWSPATH."v_accueil.php");
+			}
 		}
 		else{
 			$id = $visiteur['id'];
