@@ -1,0 +1,19 @@
+/**
+ * Vérifie s'il existe une fiche de frais cloturée
+
+ * @param $mois sous la forme aaaamm
+ * @param $idVisiteur
+ * @return vrai ou faux
+ */
+	public function existeFicheFraisCloture($mois, $idVisiteur){
+		$ok = false;
+		$req = "select count(*) as nb from fichefrais 
+		where fichefrais.mois = :mois and fichefrais.idVisiteur = :idVisiteur and $idEtat = 'CL'";
+		$idJeuRes = PdoGsb::$monPdo->prepare($req);
+		$idJeuRes->execute(array( ':idVisiteur' => $idVisiteur, ':mois' => $mois));
+		$ligne = $idJeuRes->fetch();
+		if($ligne['nb'] == 1){
+			$ok = true;
+		}
+		return $ok;
+	}
