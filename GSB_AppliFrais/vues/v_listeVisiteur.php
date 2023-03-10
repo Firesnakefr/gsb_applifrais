@@ -1,14 +1,14 @@
 <div id="contenu">
       <h2>Validation des frais</h2>
-      <form action="selectionnerVisiteur" method="post">
+      <form action="index.php?uc=validerFrais&action=validerFicheVisiteur" method="post">
 	     <div class="corpsForm">
 		<!-- Combo visiteur -->
 		<p>
 		<label for="lstVisiteur">Choisir le visiteur</label>
-        
+
 		<select name='lstVisiteur' id='lstVisiteur'>
             <?php foreach($lesVisiteurs as $unVisiteur){
-                $idVisiteur = $unVisiteur['idVisiteur'];
+                $idVisiteur = $unVisiteur['id'];
                 $nomVisiteur = $unVisiteur['nom'];
                 $prenomVisiteur = $unVisiteur['prenom'];
             ?>
@@ -30,4 +30,5 @@
 		
       </div>
  
-	 </form>
+	  </form>
+</div>

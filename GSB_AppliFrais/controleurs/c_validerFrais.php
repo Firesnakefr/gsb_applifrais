@@ -14,11 +14,13 @@ switch($action){
         $lesVisiteurs = $pdo->getLesVisiteurs();
         //$mois = getMoisATraiter();
         $idVisiteur = $_REQUEST['lstVisiteur'];
-        if ($pdo->existeFicheFraiscloturee($mois, $idVisiteur)){
+        $mois = trim(htmlentities($_REQUEST['txtMois']));
+        echo "visiteur : ".$idVisiteur;
+        if ($pdo->existeFicheFraisCloture($mois, $idVisiteur)){
             include(VIEWSPATH."v_listeFrais.php"); /* ajoute la vue v_listeFrais.php */
         }
         else{ /* sinon il y a une erreur et on l'affiche */
-            ajouterErreur("Les valeurs des frais doivent être numériques");
+            ajouterErreur("Il n'y a pas de fiche de fiche cloturé");
             include(VIEWSPATH."v_erreurs.php");
         }
         break;

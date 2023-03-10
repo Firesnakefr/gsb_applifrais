@@ -356,12 +356,11 @@ public function getInfosComptable($login, $mdp){
  */
 public function existeFicheFraisCloture($mois, $idVisiteur){
 	$ok = false;
-	$req = "select count(*) as nb from fichefrais 
-	where fichefrais.mois = :mois and fichefrais.idVisiteur = :idVisiteur and $idEtat = 'CL'";
+	$req = "select count(*) as nblignesfrais from fichefrais where fichefrais.mois = :mois and fichefrais.idVisiteur = :idVisiteur and idEtat = 'CL'";
 	$idJeuRes = PdoGsb::$monPdo->prepare($req);
 	$idJeuRes->execute(array( ':idVisiteur' => $idVisiteur, ':mois' => $mois));
 	$ligne = $idJeuRes->fetch();
-	if($ligne['nb'] == 1){
+	if ($ligne['nblignesfrais'] == 1){
 		$ok = true;
 	}
 	return $ok;
