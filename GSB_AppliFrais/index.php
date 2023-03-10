@@ -11,9 +11,12 @@ include(VIEWSPATH."v_entete.php");
 require_once(INCLUDEPATH."fct.inc.php");
 $pdo = PdoGsb::getPdoGsb();
 $estConnecte = estConnecte();
-if(!isset($_REQUEST['uc']) || !$estConnecte){
-     $_REQUEST['uc'] = 'connexion';
-}	 
+$estConnecte = estConnecteComptable();
+
+if(!isset($_REQUEST['uc']) || !$estConnecte){ 
+	if(!isset($_REQUEST['uc']) || !$estConnecteComptable){
+    	$_REQUEST['uc'] = 'connexion';}
+}
 $uc = $_REQUEST['uc'];
 switch($uc){
 	case 'connexion':{

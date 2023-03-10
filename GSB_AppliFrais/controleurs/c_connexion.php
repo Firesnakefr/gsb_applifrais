@@ -23,7 +23,7 @@ switch($action){
 				$id = $comptable['id'];
 				$nom = $comptable['nom'];
 				$prenom = $comptable['prenom'];
-				Cconnecter($id, $nom, $prenom);
+				connecterComptable($id, $nom, $prenom);
 				include(VIEWSPATH."v_sommairecomptable.php");
 				include(VIEWSPATH."v_accueil.php");
 			}

@@ -332,5 +332,40 @@ public function getInfosComptable($login, $mdp){
 		$resultat = PdoGsb::$monPdo->prepare($req); 
 		$resultat->execute(array( ':idVisiteur' => $idVisiteur, ':mois' => $mois, ':etat' => $etat ));
 	}
+
+/**
+ * Récupère la liste des visiteurs
+ 
+ * @return les visiteurs
+ */
+
+	public function getLesVisiteurs(){
+	$req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom from visiteur";
+	$idJeuRes = PdoGsb::$monPdo->prepare($req);
+	$idJeuRes->execute(array());
+	$lesLignes = $idJeuRes->fetchAll();
+	return $lesLignes;
+	}
+
+/**
+ * Vérifie s'il existe une fiche de frais cloturée
+
+ * @param $mois sous la forme aaaamm
+ * @param $idVisiteur
+ * @return vrai ou faux
+ */
+public function existeFicheFraisCloture($mois, $idVisiteur){
+	$ok = false;
+	$req = "select count(*) as nb from fichefrais 
+	where fichefrais.mois = :mois and fichefrais.idVisiteur = :idVisiteur and $idEtat = 'CL'";
+	$idJeuRes = PdoGsb::$monPdo->prepare($req);
+	$idJeuRes->execute(array( ':idVisiteur' => $idVisiteur, ':mois' => $mois));
+	$ligne = $idJeuRes->fetch();
+	if($ligne['nb'] == 1){
+		$ok = true;
+	}
+	return $ok;
+}
+
 }
 ?>
